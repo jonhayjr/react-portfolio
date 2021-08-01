@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This alternate version of the portfolio project that I created for my FEWD Techdegree with Team Treehouse.  I rebuilt this app using React.
+
+Click [`here`](https://jh-react-portfolio.netlify.app/) for a live preview.
 
 ## Available Scripts
 
