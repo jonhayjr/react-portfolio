@@ -1,6 +1,7 @@
 const Project = ({projects}) => {
+
     const projectElements = 
-    projects 
+    projects
     ?
             projects.map((project, index) =>
             

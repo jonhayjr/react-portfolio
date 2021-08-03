@@ -1,7 +1,49 @@
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+
+//Import config 
+import config from '../config';
+
 //Import Components
 import Project from '../Project/Project';
 
-const Projects = ({projects, handleSkillChange, skill}) => {
+const Projects = () => {
+
+//Set state
+  const [skill, setSkill] = useState('All');
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    //Set isLoading to true
+    setIsLoading(true);
+    //Get data from projects api
+    axios.get(`${config.apiBaseUrl}/projects`)
+    .then(res => {
+        setData(res.data.data);
+        console.log(res.data.data);
+        setIsLoading(false);
+    })
+  }, []);
+
+    //Filter data by skill and update data state
+    const filterBySkill = (skill) => {
+        //If skill is All, use projects api.  If skill is not All, use projects/:skill api
+        const apiUrl = skill ==='All' ? `${config.apiBaseUrl}/projects` : `${config.apiBaseUrl}/projects/${skill}`;
+    
+        //Get project by skill from skills api
+        axios.get(`${apiUrl}`)
+        .then(res => {
+            setData(res.data.data);
+        })
+      }
+    
+      //Function that handle change to skill that is selected
+      const handleSkillChange = (skill) => {
+        setSkill(skill);
+        filterBySkill(skill);
+      }
+
 
     const handleChange = (e) => {
         handleSkillChange(e.target.value);
@@ -26,7 +68,10 @@ const Projects = ({projects, handleSkillChange, skill}) => {
                         </div>
                     </div>
                 </div>
-                <Project projects={projects}/>
+                {isLoading ?
+                <p className="lead text-white mb-4 text-center mt-4">Loading...</p>
+                : <Project projects={data}/>
+                }
             </section>
             <hr/>
         </div>
