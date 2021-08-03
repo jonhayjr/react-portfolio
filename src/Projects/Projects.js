@@ -20,8 +20,7 @@ const Projects = () => {
     //Get data from projects api
     axios.get(`${config.apiBaseUrl}/projects`)
     .then(res => {
-        setData(res.data.data);
-        console.log(res.data.data);
+        setData(res.data);
         setIsLoading(false);
     })
   }, []);
@@ -34,7 +33,7 @@ const Projects = () => {
         //Get project by skill from skills api
         axios.get(`${apiUrl}`)
         .then(res => {
-            setData(res.data.data);
+            setData(res.data);
         })
       }
     
